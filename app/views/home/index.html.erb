@@ -1,0 +1,52 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">Role</th>
+      <th scope="col">Trigger</th>
+      <th scope="col">Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% User.all.each do |user|%>
+      <tr>
+        <td ><%= user.email %></td>
+        <td><%= user.role %></td>
+        <td><button onclick='submitAjaxcall("<%= user.email %>");' >Click to trigger</button></td>
+        <td id="aja_response_<%= user.id%>">ajax response</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script>
+    // Rails.ajax has to url encode post params
+    toURLEncoded = function(element) {
+      var key, list;
+      list = [];
+      if ('object' === typeof element) {
+        for (key in element) {
+          key = key;
+          if (element.hasOwnProperty(key)) {
+            list.push(key + '=' + encodeURIComponent(element[key]));
+          }
+        }
+      }
+      return list.join('&');
+    };
+
+    function submitAjaxcall(email){
+      var email = email
+      const person = {firstName:"John", lastName:"Doe", age:50, eyeColor:"blue"};
+      Rails.ajax({
+        type: "POST", 
+        url: "<%= ajax_call_path %>",
+        data: toURLEncoded({email: email}),
+        success: function (response) {
+          var id = "aja_response_" + response.user_id
+          document.getElementById(id).innerHTML = response.user_id;}
+      })
+    }
+</script>
+
+
+
