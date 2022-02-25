@@ -25,6 +25,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
  gem 'jwt'
+gem 'rspec-rails', '~> 3.5'
+gem 'factory_girl_rails'
+gem 'database_cleaner'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
