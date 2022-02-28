@@ -19,7 +19,6 @@ class AuthenticateUser
 
   def user
     user = User.find_by_email(email)
-    byebug
     return user if user && user.valid_password?(password)
     nil
   end
